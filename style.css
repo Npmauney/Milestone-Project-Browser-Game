@@ -1,0 +1,18 @@
+body {
+    text-align: center;
+}
+
+#dealer-hand,
+#player-hand {
+    margin-bottom: 20px;
+}
+
+#hit-button,
+#stay-button,
+#play-again-button {
+    margin: 10px;
+}
+
+img {
+    width: 100px;
+}
