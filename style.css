@@ -8,7 +8,8 @@ body {
 }
 
 #hit-button,
-#stay-button {
+#stay-button,
+#play-again-button {
     margin: 10px;
 }
 
