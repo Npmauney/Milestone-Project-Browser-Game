@@ -1,4 +1,5 @@
 // Card deck represented as an array of card objects
+// Card deck represented as an array of card objects
 const deck = [
   { rank: '2', suit: 'hearts' },
   { rank: '3', suit: 'hearts' },
@@ -56,21 +57,6 @@ const deck = [
 
 let dealerHand = [];
 let playerHand = [];
-let betAmount = 1;
-let playerMoney = 100;
-let resultMessage = document.getElementById('result-message');
-
-function resetGame() {
-  dealerHand = [];
-  playerHand = [];
-  resultMessage.textContent = '';
-  document.getElementById('play-again-button').style.display = 'none';
-  document.getElementById('hit-button').disabled = false;
-  document.getElementById('stay-button').disabled = false;
-  document.getElementById('bet-amount').disabled = false;
-  document.getElementById('bet-amount').value = '1';
-  dealInitialCards();
-}
 
 function dealInitialCards() {
   // Deal two cards to dealer and player
@@ -82,7 +68,6 @@ function dealInitialCards() {
   // Display initial cards
   displayDealerHand();
   displayPlayerHand();
-  checkBlackjack();
 }
 
 function drawCard() {
@@ -155,33 +140,25 @@ function checkBlackjack() {
 
   if (dealerValue === 21 && playerValue === 21) {
       // It's a tie
-      declareResult('It\'s a tie!', 0);
+      declareResult('It\'s a tie!');
   } else if (dealerValue === 21) {
       // Dealer wins
-      declareResult('Dealer wins with Blackjack!', -betAmount);
+      declareResult('Dealer wins with Blackjack!');
   } else if (playerValue === 21) {
       // Player wins
-      declareResult('Player wins with Blackjack!', betAmount);
+      declareResult('Player wins with Blackjack!');
   }
 }
 
-function declareResult(result, moneyChange) {
+function declareResult(result) {
   // Display the result message
+  const resultMessage = document.createElement('p');
   resultMessage.textContent = result;
+  document.body.appendChild(resultMessage);
+
+  // Disable hit and stay buttons
   document.getElementById('hit-button').disabled = true;
   document.getElementById('stay-button').disabled = true;
-  document.getElementById('play-again-button').style.display = 'inline';
-
-  // Update player's money and display
-  playerMoney += moneyChange;
-  document.getElementById('bet-amount').disabled = true;
-  if (moneyChange > 0) {
-    resultMessage.textContent += ' You won $' + moneyChange + '!';
-  } else if (moneyChange < 0) {
-    resultMessage.textContent += ' You lost $' + Math.abs(moneyChange) + '.';
-  } else {
-    resultMessage.textContent += ' No money change.';
-  }
 }
 
 function dealerTurn() {
@@ -200,15 +177,15 @@ function checkResult() {
   const playerValue = calculateHandValue(playerHand);
 
   if (dealerValue > 21) {
-      declareResult('Dealer busts. Player wins!', betAmount);
+      declareResult('Dealer busts. Player wins!');
   } else if (playerValue > 21) {
-      declareResult('Player busts. Dealer wins!', -betAmount);
+      declareResult('Player busts. Dealer wins!');
   } else if (dealerValue > playerValue) {
-      declareResult('Dealer wins!', -betAmount);
+      declareResult('Dealer wins!');
   } else if (dealerValue < playerValue) {
-      declareResult('Player wins!', betAmount);
+      declareResult('Player wins!');
   } else {
-      declareResult('It\'s a tie!', 0);
+      declareResult('It\'s a tie!');
   }
 }
 
@@ -218,33 +195,13 @@ document.getElementById('hit-button').addEventListener('click', function() {
   displayPlayerHand();
   checkBlackjack();
   if (calculateHandValue(playerHand) > 21) {
-      declareResult('Player busts. Dealer wins!', -betAmount);
+      declareResult('Player busts. Dealer wins!');
   }
 });
 
 // Event listener for the stay button
 document.getElementById('stay-button').addEventListener('click', function() {
   dealerTurn();
-});
-
-// Event listener for the play again button
-document.getElementById('play-again-button').addEventListener('click', function() {
-  // Reset game state
-  deck.push(...dealerHand, ...playerHand);
-  dealerHand = [];
-  playerHand = [];
-  resultMessage.textContent = '';
-  document.getElementById('dealer-hand').innerHTML = '';
-  document.getElementById('player-hand').innerHTML = '';
-  document.getElementById('hit-button').disabled = false;
-  document.getElementById('stay-button').disabled = false;
-  document.getElementById('play-again-button').style.display = 'none';
-  document.getElementById('bet-amount').disabled = false;
-
-  // Deal initial cards and reset bet amount
-  dealInitialCards();
-  betAmount = 0;
-  document.getElementById('bet-amount').value = '';
 });
 
 // Deal initial cards on page load
