@@ -56,21 +56,9 @@ const deck = [
 
 let dealerHand = [];
 let playerHand = [];
-let betAmount = parseInt(document.getElementById('bet-amount').value);
+let betAmount = 0
 let playerMoney = 100;
 let resultMessage = document.getElementById('result-message');
-
-function resetGame() {
-  dealerHand = [];
-  playerHand = [];
-  resultMessage.textContent = '';
-  document.getElementById('play-again-button').style.display = 'none';
-  document.getElementById('hit-button').disabled = false;
-  document.getElementById('stay-button').disabled = false;
-  document.getElementById('bet-amount').disabled = false;
-  document.getElementById('bet-amount').value = '1';
-  dealInitialCards();
-}
 
 function dealInitialCards() {
   // Deal two cards to dealer and player
@@ -248,3 +236,10 @@ document.getElementById('play-again-button').addEventListener('click', function(
 
 // Deal initial cards on page load
 dealInitialCards();
+
+// Event listener for the submit button
+document.getElementById('submit-bet').addEventListener('click', function() {
+  // Get the bet amount from the input field
+  betAmount = parseInt(document.getElementById('bet-amount').value);
+});
+
