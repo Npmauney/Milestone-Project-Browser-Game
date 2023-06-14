@@ -54,31 +54,35 @@ const deck = [
   { rank: 'ace', suit: 'spades' }
 ];
 
+//Declaring Variables
 let dealerHand = [];
 let playerHand = [];
 let betAmount = 0
 let playerMoney = 100;
 let resultMessage = document.getElementById('result-message');
 
+//Deal Cards to Players
 function dealInitialCards() {
-  // Deal two cards to dealer and player
+  // Pushes two cards to the dealer and player from deck
   dealerHand.push(drawCard());
   dealerHand.push(drawCard());
   playerHand.push(drawCard());
   playerHand.push(drawCard());
 
-  // Display initial cards
+  // Display cards
   displayDealerHand();
   displayPlayerHand();
   checkBlackjack();
 }
 
+//Draw Card
 function drawCard() {
   // Randomly select a card from the deck
   const index = Math.floor(Math.random() * deck.length);
   return deck.splice(index, 1)[0];
 }
 
+//Display Dealer Hand
 function displayDealerHand() {
   // Clear dealer's hand
   document.getElementById('dealer-hand').innerHTML = '';
@@ -92,6 +96,7 @@ function displayDealerHand() {
   }
 }
 
+//Display Player Hand
 function displayPlayerHand() {
   // Clear player's hand
   document.getElementById('player-hand').innerHTML = '';
@@ -105,6 +110,7 @@ function displayPlayerHand() {
   }
 }
 
+//Images for the cards
 function getCardImage(card) {
   // Generate the image URL for the card based on its rank and suit
   return `assets/images/${card.rank}_of_${card.suit}.png`;
@@ -162,7 +168,7 @@ function declareResult(result, moneyChange) {
 
   // Update player's money and display
   playerMoney += moneyChange;
-  document.getElementById('bet-amount').disabled = true;
+  
   if (moneyChange > 0) {
     resultMessage.textContent += ' You won $' + moneyChange + '!';
   } else if (moneyChange < 0) {
@@ -170,6 +176,10 @@ function declareResult(result, moneyChange) {
   } else {
     resultMessage.textContent += ' No money change.';
   }
+  document.getElementById('player-money').textContent = playerMoney
+  document.getElementById('bet-amount').disabled = true;
+  console.log('FUCK')
+  return
 }
 
 function dealerTurn() {
@@ -227,11 +237,11 @@ document.getElementById('play-again-button').addEventListener('click', function(
   document.getElementById('hit-button').disabled = false;
   document.getElementById('stay-button').disabled = false;
   document.getElementById('play-again-button').style.display = 'none';
+  document.getElementById('bet-amount').value = ''
   document.getElementById('bet-amount').disabled = false;
 
   // Deal initial cards and reset bet amount
   dealInitialCards();
-  betAmount = parseInt(document.getElementById('bet-amount').value);
 });
 
 // Deal initial cards on page load
@@ -241,5 +251,6 @@ dealInitialCards();
 document.getElementById('submit-bet').addEventListener('click', function() {
   // Get the bet amount from the input field
   betAmount = parseInt(document.getElementById('bet-amount').value);
+  document.getElementById('bet-amount').disabled = true
 });
 
