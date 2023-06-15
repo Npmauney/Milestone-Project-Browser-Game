@@ -73,6 +73,8 @@ function dealInitialCards() {
   displayDealerHand();
   displayPlayerHand();
   checkBlackjack();
+  document.getElementById('hit-button').disabled = true;
+  document.getElementById('stay-button').disabled = true;
 }
 
 //Draw Card
@@ -236,23 +238,26 @@ document.getElementById('stay-button').addEventListener('click', function() {
   dealerTurn();
 });
 
+function resetGame() {
+// Reset game state
+deck.push(...dealerHand, ...playerHand);
+dealerHand = [];
+playerHand = [];
+resultMessage.textContent = '';
+document.getElementById('dealer-hand').innerHTML = '';
+document.getElementById('player-hand').innerHTML = '';
+document.getElementById('hit-button').disabled = false;
+document.getElementById('stay-button').disabled = false;
+document.getElementById('play-again-button').style.display = 'none';
+document.getElementById('bet-amount').value = ''
+document.getElementById('bet-amount').disabled = false;
+document.getElementById('submit-bet').disabled = false;
+ // Deal initial cards and reset bet amount
+ dealInitialCards();
+}
 // Event listener for the play again button
 document.getElementById('play-again-button').addEventListener('click', function() {
-  // Reset game state
-  deck.push(...dealerHand, ...playerHand);
-  dealerHand = [];
-  playerHand = [];
-  resultMessage.textContent = '';
-  document.getElementById('dealer-hand').innerHTML = '';
-  document.getElementById('player-hand').innerHTML = '';
-  document.getElementById('hit-button').disabled = false;
-  document.getElementById('stay-button').disabled = false;
-  document.getElementById('play-again-button').style.display = 'none';
-  document.getElementById('bet-amount').value = ''
-  document.getElementById('bet-amount').disabled = false;
-
-  // Deal initial cards and reset bet amount
-  dealInitialCards();
+  resetGame()
 });
 
 // Deal initial cards on page load
@@ -262,6 +267,22 @@ dealInitialCards();
 document.getElementById('submit-bet').addEventListener('click', function() {
   // Get the bet amount from the input field
   betAmount = parseInt(document.getElementById('bet-amount').value);
-  document.getElementById('bet-amount').disabled = true
+  const betInput = document.getElementById('bet-amount');
+  const betValue = parseInt(betInput.value);
+
+  if (Number.isInteger(betValue) && betValue > 0) {
+    // Valid bet amount entered
+    betAmount = betValue;
+    betInput.disabled = true;
+    document.getElementById('submit-bet').disabled = true;
+    document.getElementById('bet-amount').disabled = true
+  document.getElementById('hit-button').disabled = false;
+  document.getElementById('stay-button').disabled = false;
+  } else {
+    // Invalid input, display an error message
+    alert('Please enter a valid whole number greater than 0 for the bet amount.');
+    betInput.value = '';
+    resetGame();
+  }
 });
 
