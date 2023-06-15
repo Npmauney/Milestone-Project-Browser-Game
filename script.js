@@ -89,32 +89,38 @@ function displayDealerHand() {
 
   // Display each card in the dealer's hand
   for (let i = 0; i < dealerHand.length; i++) {
-      const card = dealerHand[i];
-      const cardImage = document.createElement('img');
-      cardImage.src = getCardImage(card);
-      document.getElementById('dealer-hand').appendChild(cardImage);
+    const card = dealerHand[i];
+    const cardImage = document.createElement('img');
+    cardImage.src = getCardImage(card, true);
+    document.getElementById('dealer-hand').appendChild(cardImage);
   }
 }
 
-//Display Player Hand
 function displayPlayerHand() {
   // Clear player's hand
   document.getElementById('player-hand').innerHTML = '';
 
   // Display each card in the player's hand
   for (let i = 0; i < playerHand.length; i++) {
-      const card = playerHand[i];
-      const cardImage = document.createElement('img');
-      cardImage.src = getCardImage(card);
-      document.getElementById('player-hand').appendChild(cardImage);
+    const card = playerHand[i];
+    const cardImage = document.createElement('img');
+    cardImage.src = getCardImage(card, false);
+    document.getElementById('player-hand').appendChild(cardImage);
   }
 }
 
+
 //Images for the cards
-function getCardImage(card) {
-  // Generate the image URL for the card based on its rank and suit
-  return `assets/images/${card.rank}_of_${card.suit}.png`;
+function getCardImage(card, isDealer) {
+  if (isDealer && dealerHand.indexOf(card) === 0) {
+    // Display a different image for the first card of the dealer
+    return 'assets/jack-black-card.jpg';
+  } else {
+    // Generate the image URL for the card based on its rank and suit
+    return `assets/images/${card.rank}_of_${card.suit}.png`;
+  }
 }
+
 
 function calculateHandValue(hand) {
   // Calculate the total value of a hand
@@ -178,7 +184,12 @@ function declareResult(result, moneyChange) {
   }
   document.getElementById('player-money').textContent = playerMoney
   document.getElementById('bet-amount').disabled = true;
-  console.log('FUCK')
+  // Check if the first card of the dealer needs to be updated
+  const firstDealerCard = dealerHand[0];
+  const firstDealerCardImage = document.querySelector('#dealer-hand img');
+  if (firstDealerCardImage.src.endsWith('jack-black-card.jpg')) {
+    firstDealerCardImage.src = getCardImage(firstDealerCard, false);
+  }
   return
 }
 
