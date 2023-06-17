@@ -202,7 +202,6 @@ function dealerTurn() {
   }
 
   displayDealerHand();
-  checkBlackjack();
   checkResult();
 }
 
