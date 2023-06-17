@@ -72,7 +72,7 @@ function dealInitialCards() {
   // Display cards
   displayDealerHand();
   displayPlayerHand();
-  checkBlackjack();
+  
   document.getElementById('hit-button').disabled = true;
   document.getElementById('stay-button').disabled = true;
 }
@@ -260,9 +260,6 @@ document.getElementById('play-again-button').addEventListener('click', function(
   resetGame()
 });
 
-// Deal initial cards on page load
-dealInitialCards();
-
 // Event listener for the submit button
 document.getElementById('submit-bet').addEventListener('click', function() {
   // Get the bet amount from the input field
@@ -278,11 +275,14 @@ document.getElementById('submit-bet').addEventListener('click', function() {
     document.getElementById('bet-amount').disabled = true
   document.getElementById('hit-button').disabled = false;
   document.getElementById('stay-button').disabled = false;
+
+  checkBlackjack();
   } else {
     // Invalid input, display an error message
     alert('Please enter a valid whole number greater than 0 for the bet amount.');
-    betInput.value = '';
     resetGame();
   }
 });
 
+// Deal initial cards on page load
+dealInitialCards();
