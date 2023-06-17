@@ -113,3 +113,11 @@ h1, h2 {
     font-family: 'Lobster', cursive;
     font-weight: normal;
 }
+
+h1{
+    font-size: 3em;
+}
+
+h2{
+    color: goldenrod
+}
