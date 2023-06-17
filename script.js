@@ -116,7 +116,7 @@ function displayPlayerHand() {
 function getCardImage(card, isDealer) {
   if (isDealer && dealerHand.indexOf(card) === 0) {
     // Display a different image for the first card of the dealer
-    return 'assets/jack-black-card.jpg';
+    return 'assets/jack-black-card.png';
   } else {
     // Generate the image URL for the card based on its rank and suit
     return `assets/images/${card.rank}_of_${card.suit}.png`;
@@ -189,7 +189,7 @@ function declareResult(result, moneyChange) {
   // Check if the first card of the dealer needs to be updated
   const firstDealerCard = dealerHand[0];
   const firstDealerCardImage = document.querySelector('#dealer-hand img');
-  if (firstDealerCardImage.src.endsWith('jack-black-card.jpg')) {
+  if (firstDealerCardImage.src.endsWith('jack-black-card.png')) {
     firstDealerCardImage.src = getCardImage(firstDealerCard, false);
   }
   return
@@ -202,25 +202,31 @@ function dealerTurn() {
   }
 
   displayDealerHand();
-  checkResult();
   checkBlackjack();
+  checkResult();
 }
 
 function checkResult() {
   // Compare the values of dealer and player hands to determine the result
   const dealerValue = calculateHandValue(dealerHand);
   const playerValue = calculateHandValue(playerHand);
-
-  if (dealerValue > 21) {
-      declareResult('Dealer busts. Player wins!', betAmount);
+  
+  if (dealerValue === 21 && playerValue === 21) {
+    declareResult("It's a tie!", 0);
+  } else if (dealerValue === 21) {
+    declareResult("Dealer wins with Blackjack!", -betAmount);
+  } else if (playerValue === 21) {
+    declareResult("Player wins with Blackjack!", betAmount);
+  } else if (dealerValue > 21) {
+    declareResult("Dealer busts. Player wins!", betAmount);
   } else if (playerValue > 21) {
-      declareResult('Player busts. Dealer wins!', -betAmount);
+    declareResult("Player busts. Dealer wins!", -betAmount);
   } else if (dealerValue > playerValue) {
-      declareResult('Dealer wins!', -betAmount);
+    declareResult("Dealer wins!", -betAmount);
   } else if (dealerValue < playerValue) {
-      declareResult('Player wins!', betAmount);
+    declareResult("Player wins!", betAmount);
   } else {
-      declareResult('It\'s a tie!', 0);
+    declareResult("It's a tie!", 0);
   }
 }
 
