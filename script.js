@@ -60,6 +60,7 @@ let playerHand = [];
 let betAmount = 0
 let playerMoney = 100;
 let resultMessage = document.getElementById('result-message');
+const cards = document.querySelectorAll('.card')
 
 //Deal Cards to Players
 function dealInitialCards() {

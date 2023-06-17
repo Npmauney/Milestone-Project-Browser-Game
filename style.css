@@ -1,18 +1,115 @@
 body {
     text-align: center;
+    background-color: #06680c;
+    color: white;
+    font-family: Arial, sans-serif;
+}
+
+h1 {
+    margin-top: 30px;
 }
 
 #dealer-hand,
 #player-hand {
+    display: flex;
+    justify-content: center;
     margin-bottom: 20px;
 }
 
-#hit-button,
-#stay-button,
+#dealer-hand img,
+#player-hand img {
+    width: 100px;
+    height: 150px;
+    margin: 0 5px;
+}
+
+#result-message {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
 #play-again-button {
+    display: inline-block;
     margin: 10px;
 }
 
+input[type="number"] {
+    width: 80px;
+    padding: 5px;
+    margin-right: 5px;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: goldenrod;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:disabled {
+    background-color: #6c757d;
+    cursor: not-allowed;
+}
+
+label {
+    font-size: 18px;
+    margin-right: 5px;
+}
+
+#bet-amount {
+    text-align: center;
+}
+
+#player-money {
+    font-weight: bold;
+}
+
+#dealer-hand {
+    margin-top: 40px;
+}
+
+#submit-bet {
+    margin-left: 5px;
+}
+
+#dealer-hand h2,
+#player-hand h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: black
+}
+
+button:hover {
+    background-color: #c4c4c4;
+    color: #000;
+}
+
+/* Add sliding animation */
+@keyframes slideIn {
+    from {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
 img {
-    width: 100px;
+    /* Other card styles */
+
+    /* Apply sliding animation */
+    animation-name: slideIn;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+}
+
+
+h1, h2 {
+    font-family: 'Lobster', cursive;
+    font-weight: normal;
 }
