@@ -203,6 +203,7 @@ function dealerTurn() {
 
   displayDealerHand();
   checkResult();
+  checkBlackjack();
 }
 
 function checkResult() {
@@ -276,7 +277,7 @@ document.getElementById('submit-bet').addEventListener('click', function() {
   document.getElementById('hit-button').disabled = false;
   document.getElementById('stay-button').disabled = false;
 
-  checkBlackjack();
+
   } else {
     // Invalid input, display an error message
     alert('Please enter a valid whole number greater than 0 for the bet amount.');
