@@ -246,6 +246,12 @@ document.getElementById('stay-button').addEventListener('click', function() {
 });
 
 function resetGame() {
+if (playerMoney<=0){
+  alert('Jack Black has cleaned you out!')
+  playerMoney =100
+  document.getElementById('player-money').textContent = playerMoney
+  resetGame()
+} else{
 // Reset game state
 deck.push(...dealerHand, ...playerHand);
 dealerHand = [];
@@ -262,6 +268,7 @@ document.getElementById('submit-bet').disabled = false;
  // Deal initial cards and reset bet amount
  dealInitialCards();
 }
+}
 // Event listener for the play again button
 document.getElementById('play-again-button').addEventListener('click', function() {
   resetGame()
@@ -273,8 +280,11 @@ document.getElementById('submit-bet').addEventListener('click', function() {
   betAmount = parseInt(document.getElementById('bet-amount').value);
   const betInput = document.getElementById('bet-amount');
   const betValue = parseInt(betInput.value);
+  if (betAmount > playerMoney){
+    alert('Please enter a bet that is equal to or less than your current holdings')
+}
 
-  if (Number.isInteger(betValue) && betValue > 0) {
+else if (Number.isInteger(betValue) && betValue > 0) {
     // Valid bet amount entered
     betAmount = betValue;
     betInput.disabled = true;
@@ -287,7 +297,9 @@ document.getElementById('submit-bet').addEventListener('click', function() {
   } else {
     // Invalid input, display an error message
     alert('Please enter a valid whole number greater than 0 for the bet amount.');
-    resetGame();
+    document.getElementById('bet-amount').disabled = false;
+    document.getElementById('submit-bet').disabled = false;
+
   }
 });
 
