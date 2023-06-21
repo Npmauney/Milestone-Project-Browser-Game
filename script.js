@@ -282,6 +282,7 @@ document.getElementById('submit-bet').addEventListener('click', function() {
   const betValue = parseInt(betInput.value);
   if (betAmount > playerMoney){
     alert('Please enter a bet that is equal to or less than your current holdings')
+    document.getElementById('bet-amount').value = ''
 }
 
 else if (Number.isInteger(betValue) && betValue > 0) {
@@ -299,6 +300,7 @@ else if (Number.isInteger(betValue) && betValue > 0) {
     alert('Please enter a valid whole number greater than 0 for the bet amount.');
     document.getElementById('bet-amount').disabled = false;
     document.getElementById('submit-bet').disabled = false;
+    document.getElementById('bet-amount').value = ''
 
   }
 });
