@@ -65,6 +65,7 @@ label {
 
 #player-money {
     font-weight: bold;
+    color: goldenrod
 }
 
 #dealer-hand {
@@ -90,11 +91,11 @@ button:hover {
 /* Add sliding animation */
 @keyframes slideIn {
     from {
-        transform: translateX(-100%);
+        transform: translateX(-100%) rotate(0deg);
         opacity: 0;
     }
     to {
-        transform: translateX(0);
+        transform: translateX(0) rotate(360deg);
         opacity: 1;
     }
 }
@@ -116,8 +117,28 @@ h1, h2 {
 
 h1{
     font-size: 3em;
+    border: 5px solid goldenrod;
+    border-radius: 5px;
+    padding: 10px;
+    color: white;
+    width: fit-content;
+    margin: auto;
 }
 
 h2{
     color: goldenrod
 }
+
+#result-message {
+    font-family: 'Lobster', cursive;
+    color: goldenrod;
+  }
+
+  #playerWinnings {
+    border: 5px groove #cccccc;
+    padding: 5px;
+    width: fit-content;
+    margin: auto;
+    font-size: 2em;
+    color: white
+  }

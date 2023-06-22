@@ -185,7 +185,7 @@ function declareResult(result, moneyChange) {
   } else {
     resultMessage.textContent += ' No money change.';
   }
-  document.getElementById('player-money').textContent = playerMoney
+  document.getElementById('player-money').textContent = `$${playerMoney}`
   document.getElementById('bet-amount').disabled = true;
   // Check if the first card of the dealer needs to be updated
   const firstDealerCard = dealerHand[0];
